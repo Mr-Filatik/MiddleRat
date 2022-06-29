@@ -11,7 +11,9 @@ public class StatusController : MonoBehaviour
     [SerializeField] private float satietySpeed;
     [SerializeField] private float movementSpeed;
     [SerializeField] private float poisoningDeviationSpeed;
-    [SerializeField] private TMP_Text text1;
+    [SerializeField] private TMP_Text satietyText;
+    [SerializeField] private TMP_Text poisonText;
+
     public bool isAlive;
     public void Eating(float eat)
     {
@@ -25,13 +27,12 @@ public class StatusController : MonoBehaviour
     }
     public void Poisoning(float poison)
     {
-        if (poison < 0)
-            throw new ArgumentOutOfRangeException(nameof(poison));
+        
 
         if (poisonStat < 100) poisonStat += poison;
 
-        if (poisonStat > 100) poisonStat = 100;
-
+        if (poisonStat > 5) poisonStat = 5;
+        if (poisonStat < 0) poisonStat = 0;
     }
     public void SatietyReduction()
     {
@@ -43,7 +44,7 @@ public class StatusController : MonoBehaviour
         }
         if (satietyStat < 0) satietyStat = 0;
     }
-    public void PoisoningReduction()
+    /*public void PoisoningReduction()
     {
         poisoningDeviationSpeed = poisonStat;
 
@@ -52,7 +53,7 @@ public class StatusController : MonoBehaviour
             poisonStat -= 1 * Time.deltaTime;
         }
         if (poisonStat < 0) poisonStat = 0;
-    }
+    } */
     public void GameOver()
     {
         if (movementSpeed <= 0) isAlive = false;
@@ -62,12 +63,16 @@ public class StatusController : MonoBehaviour
     {
         satietyStat = 100;
     }
-
+    void Start()
+    {
+        StartGame();
+    }
     // Update is called once per frame
     void Update()
     {
         SatietyReduction();
-        PoisoningReduction();
-        text1.text = "q";
+        
+        poisonText.text = poisonStat.ToString();
+        satietyText.text = satietyStat.ToString();
     }
 }
