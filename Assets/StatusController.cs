@@ -7,9 +7,10 @@ using TMPro;
 public class StatusController : MonoBehaviour
 {
     [SerializeField] private float satietyStat;
-    [SerializeField] private float poisonStat;
+    [SerializeField] private static float poisonStat;
     [SerializeField] private float satietySpeed;
-    [SerializeField] private float movementSpeed;
+    [SerializeField] private float speed = 5;
+    [SerializeField] private static float movementSpeed = 5;
     [SerializeField] private float poisoningDeviationSpeed;
     [SerializeField] private TMP_Text satietyText;
     [SerializeField] private TMP_Text poisonText;
@@ -36,7 +37,11 @@ public class StatusController : MonoBehaviour
     }
     public void SatietyReduction()
     {
-        movementSpeed = satietyStat; //скорректировать
+        if(satietyStat > 50)
+        {
+            movementSpeed = speed - (speed * (1/(100/satietyStat))) + 2.5f;
+        }
+        else movementSpeed = speed; //скорректировать
 
         if (satietyStat > 0)
         {
@@ -61,7 +66,15 @@ public class StatusController : MonoBehaviour
     // Start is called before the first frame update
     public void StartGame()
     {
-        satietyStat = 100;
+        satietyStat = 50;
+    }
+    public static float getSpeed()
+    {
+        return movementSpeed;
+    }
+    public static float getPoisoning()
+    {
+        return poisonStat;
     }
     void Start()
     {
