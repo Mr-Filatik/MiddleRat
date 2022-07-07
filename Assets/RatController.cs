@@ -18,6 +18,12 @@ public class RatController : MonoBehaviour
     {
         movementSpeed = StatusController.getSpeed();
 
+        if (StatusController.getEat() > 70)
+        {
+            canJump = false;
+        }
+        else canJump = true;
+
         if (Input.GetKeyDown(KeyCode.A))
         {
             move = -1;
@@ -48,11 +54,7 @@ public class RatController : MonoBehaviour
         pos.x += move * sideSpeed * Time.deltaTime;
         transform.position = pos;
 
-        if (StatusController.getSpeed() > 70)
-        {
-            canJump = false;
-        }
-        else canJump = true;
+        
 
         if (isJump)
         {

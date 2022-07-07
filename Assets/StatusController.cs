@@ -6,7 +6,7 @@ using TMPro;
 
 public class StatusController : MonoBehaviour
 {
-    [SerializeField] private float satietyStat;
+    [SerializeField] private static float satietyStat;
     [SerializeField] private static float poisonStat;
     [SerializeField] private float satietySpeed;
     [SerializeField] private float speed = 5;
@@ -67,6 +67,10 @@ public class StatusController : MonoBehaviour
     public void StartGame()
     {
         satietyStat = 50;
+    }
+    public static float getEat()
+    {
+        return satietyStat;
     }
     public static float getSpeed()
     {
