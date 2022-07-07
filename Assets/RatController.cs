@@ -87,7 +87,7 @@ public class RatController : MonoBehaviour
         Vector3 pos = transform.position;
         
         pos.x += Random.Range(-StatusController.getPoisoning(), StatusController.getPoisoning()) * Time.deltaTime * 1.5f;
-        if (pos.x == -1.9 || pos.x == 2.9)
+        if (pos.x < -1.9 || pos.x > 2.9)
         {
             pos.x = prevPos.x;
         }
