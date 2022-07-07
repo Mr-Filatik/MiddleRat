@@ -37,9 +37,14 @@ public class StatusController : MonoBehaviour
     }
     public void SatietyReduction()
     {
-        if(satietyStat > 50)
+        if(satietyStat > 66)
         {
-            movementSpeed = speed - (speed * (1/(100/satietyStat))) + 2.5f;
+            movementSpeed = speed * (1-(satietyStat / 100)) * 3;
+            if (movementSpeed < 1) movementSpeed = 1;
+        }
+        else if (satietyStat < 33)
+        {
+            movementSpeed = speed * satietyStat/100 * 3;
         }
         else movementSpeed = speed; //скорректировать
 

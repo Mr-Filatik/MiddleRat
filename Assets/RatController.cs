@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class RatController : MonoBehaviour
@@ -13,11 +14,12 @@ public class RatController : MonoBehaviour
     public AnimationCurve animation = null;
     public GameObject map;
     public StatusController status;
-    
+    [SerializeField] private TMP_Text moveSpeedText;
+
     private void Update()
     {
         movementSpeed = StatusController.getSpeed();
-
+        
         if (StatusController.getEat() > 70)
         {
             canJump = false;
@@ -48,13 +50,18 @@ public class RatController : MonoBehaviour
                 time = 0;
             }
         }
-        
 
+        Vector3 prevPos = transform.position;
         Vector3 pos = transform.position;
         pos.x += move * sideSpeed * Time.deltaTime;
+        Debug.Log(pos.x);
+        if (pos.x < -1.9 || pos.x > 2.9)
+        {
+            pos.x = prevPos.x;
+        }
         transform.position = pos;
-
         
+
 
         if (isJump)
         {
@@ -68,17 +75,24 @@ public class RatController : MonoBehaviour
             }
         }
         PoisonPos();
-        /*pos = map.transform.position;
-        pos.z += movementSpeed * Time.deltaTime;
+        pos = map.transform.position;
+        pos.z -= movementSpeed * Time.deltaTime;
         map.transform.position = pos;
-        */
 
+        moveSpeedText.text = movementSpeed.ToString();
     }
     public void PoisonPos()
     {
+        Vector3 prevPos = transform.position;
         Vector3 pos = transform.position;
-        pos.x += Random.Range(-StatusController.getPoisoning(), StatusController.getPoisoning()) * movementSpeed * Time.deltaTime;
+        
+        pos.x += Random.Range(-StatusController.getPoisoning(), StatusController.getPoisoning()) * Time.deltaTime * 1.5f;
+        if (pos.x == -1.9 || pos.x == 2.9)
+        {
+            pos.x = prevPos.x;
+        }
         transform.position = pos;
+        
     }
     private void OnTriggerEnter(Collider other)
     {
