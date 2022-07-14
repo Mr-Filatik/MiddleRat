@@ -8,6 +8,7 @@ public class RatController : MonoBehaviour
     public float move = 0;
     public bool canJump = true;
     public bool isJump = false;
+    public bool isFinish = false;
     public float sideSpeed = 0.01f;
     public float movementSpeed = 1;
     public float time = 0;
@@ -54,8 +55,8 @@ public class RatController : MonoBehaviour
         Vector3 prevPos = transform.position;
         Vector3 pos = transform.position;
         pos.x += move * sideSpeed * Time.deltaTime;
-        Debug.Log(pos.x);
-        if (pos.x < -1.9 || pos.x > 2.9)
+        
+        if (pos.x < -1.9 || pos.x > 2.9)     //side restriction
         {
             pos.x = prevPos.x;
         }
@@ -75,6 +76,7 @@ public class RatController : MonoBehaviour
             }
         }
         PoisonPos();
+        
         pos = map.transform.position;
         pos.z -= movementSpeed * Time.deltaTime;
         map.transform.position = pos;
@@ -94,10 +96,25 @@ public class RatController : MonoBehaviour
         transform.position = pos;
         
     }
+    
     private void OnTriggerEnter(Collider other)
     {
-        other.gameObject.SetActive(false);
-        gameObject.SetActive(false);
+        if(other.tag == "Finish")
+        {
+            status.isFinish = true;
+        } 
+        if(other.tag == "Poison")
+        {
+            status.Poisoning(1);
+        }
+        if (other.tag == "NotPoison")
+        {
+            status.Poisoning(-1);
+        }
+        if (other.tag == "Food")
+        {
+            status.Eating(20);
+        }
     }
 
 

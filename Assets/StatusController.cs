@@ -15,6 +15,7 @@ public class StatusController : MonoBehaviour
     [SerializeField] private TMP_Text satietyText;
     [SerializeField] private TMP_Text poisonText;
 
+    public bool isFinish;
     public bool isAlive;
     public void Eating(float eat)
     {
@@ -85,15 +86,24 @@ public class StatusController : MonoBehaviour
     {
         return poisonStat;
     }
+    public void gameFinish()
+    {
+        if (isFinish)
+        {
+            Debug.Log("game finished");
+        }
+        else Debug.Log("game playing");
+    }
     void Start()
     {
         StartGame();
     }
+
     // Update is called once per frame
     void Update()
     {
         SatietyReduction();
-        
+        gameFinish();
         poisonText.text = poisonStat.ToString();
         satietyText.text = satietyStat.ToString();
     }
