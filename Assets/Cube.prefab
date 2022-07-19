@@ -111,11 +111,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 80c8fac139e4adb4e97bc40de8314163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hunger: {fileID: 0}
+  firstfly: {fileID: 0}
+  secondfly: {fileID: 0}
+  thirdfly: {fileID: 0}
+  fourthfly: {fileID: 0}
+  fifthfly: {fileID: 0}
   satietySpeed: 0.5
   speed: 5
   poisoningDeviationSpeed: 0
   satietyText: {fileID: 0}
   poisonText: {fileID: 0}
+  isFinish: 0
   isAlive: 0
 --- !u!114 &979480799732019253
 MonoBehaviour:
@@ -132,6 +139,7 @@ MonoBehaviour:
   move: 0
   canJump: 1
   isJump: 0
+  isFinish: 0
   sideSpeed: 1
   movementSpeed: 1
   time: 0
@@ -161,3 +169,4 @@ MonoBehaviour:
     m_RotationOrder: 4
   map: {fileID: 0}
   status: {fileID: 979480799732019258}
+  moveSpeedText: {fileID: 0}
