@@ -17,7 +17,7 @@ public class StatusController : MonoBehaviour
     [SerializeField] private TMP_Text poisonText;
 
     public bool isFinish;
-    public bool isAlive;
+    public bool isAlive = true;
     public void Eating(float eat)
     {
         if (eat < 0)
@@ -32,7 +32,7 @@ public class StatusController : MonoBehaviour
     {
         
 
-        if (poisonStat < 100) poisonStat += poison;
+        poisonStat += poison;
 
         if (poisonStat > 5) poisonStat = 5;
         if (poisonStat < 0) poisonStat = 0;
@@ -68,6 +68,8 @@ public class StatusController : MonoBehaviour
     } */
     public void GameOver()
     {
+        if (!isAlive) movementSpeed = 0;
+        Debug.Log(movementSpeed);
         if (movementSpeed <= 0) isAlive = false;
     }
     // Start is called before the first frame update
@@ -103,8 +105,11 @@ public class StatusController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         SatietyReduction();
+        GameOver();
         gameFinish();
+        
         poisonText.text = poisonStat.ToString();
         satietyText.text = satietyStat.ToString();
     }

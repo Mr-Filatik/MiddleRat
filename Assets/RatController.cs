@@ -16,11 +16,25 @@ public class RatController : MonoBehaviour
     public GameObject map;
     public StatusController status;
     [SerializeField] private TMP_Text moveSpeedText;
+    private Animator anim;
 
+    private void Start()
+    {
+        anim = GetComponentInChildren<Animator>();
+    }
     private void Update()
     {
+           
+        moveController();
+        if (isJump)
+        {
+            anim.SetBool("isJumping", true); 
+        } else anim.SetBool("isJumping", false);
+    }
+    public void moveController()
+    {
         movementSpeed = StatusController.getSpeed();
-        
+        if (movementSpeed == 0) sideSpeed = 0;
         if (StatusController.getEat() > 70)
         {
             canJump = false;
@@ -51,17 +65,17 @@ public class RatController : MonoBehaviour
                 time = 0;
             }
         }
-
+        
         Vector3 prevPos = transform.position;
         Vector3 pos = transform.position;
         pos.x += move * sideSpeed * Time.deltaTime;
-        
-        if (pos.x < -1.9 || pos.x > 2.9)     //side restriction
+
+        if (pos.x < -8|| pos.x > 8)     //side restriction
         {
             pos.x = prevPos.x;
         }
         transform.position = pos;
-        
+
 
 
         if (isJump)
@@ -76,7 +90,7 @@ public class RatController : MonoBehaviour
             }
         }
         PoisonPos();
-        
+
         pos = map.transform.position;
         pos.z -= movementSpeed * Time.deltaTime;
         map.transform.position = pos;
@@ -106,14 +120,22 @@ public class RatController : MonoBehaviour
         if(other.tag == "Poison")
         {
             status.Poisoning(1);
+            other.gameObject.SetActive(false);
         }
         if (other.tag == "NotPoison")
         {
             status.Poisoning(-1);
+            other.gameObject.SetActive(false);
         }
         if (other.tag == "Food")
         {
             status.Eating(20);
+            other.gameObject.SetActive(false);
+        }
+        if(other.tag == "Obstacle")
+        {
+            status.isAlive = false;
+            anim.SetBool("isCrash", true);
         }
     }
 
