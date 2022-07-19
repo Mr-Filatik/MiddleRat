@@ -6,6 +6,7 @@ using TMPro;
 
 public class StatusController : MonoBehaviour
 {
+    public HungerBar_Script hunger;
     [SerializeField] private static float satietyStat;
     [SerializeField] private static float poisonStat;
     [SerializeField] private float satietySpeed;
@@ -47,7 +48,7 @@ public class StatusController : MonoBehaviour
         {
             movementSpeed = speed * satietyStat/100 * 3;
         }
-        else movementSpeed = speed; //скорректировать
+        else movementSpeed = speed; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
         if (satietyStat > 0)
         {
