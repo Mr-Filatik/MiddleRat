@@ -2,11 +2,17 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class StatusController : MonoBehaviour
 {
     public HungerBar_Script hunger;
+    public GameObject firstfly;
+    public GameObject secondfly;
+    public GameObject thirdfly;
+    public GameObject fourthfly;
+    public GameObject fifthfly;
     [SerializeField] private static float satietyStat;
     [SerializeField] private static float poisonStat;
     [SerializeField] private float satietySpeed;
@@ -109,7 +115,37 @@ public class StatusController : MonoBehaviour
         SatietyReduction();
         GameOver();
         gameFinish();
-        
+        if (poisonStat >= 1) {
+            firstfly.SetActive(true);
+        }
+        else {
+            firstfly.SetActive(false);
+        }
+        if (poisonStat >= 2) {
+            secondfly.SetActive(true);
+        }
+        else {
+            secondfly.SetActive(false);
+        }
+        if (poisonStat >= 3) {
+            thirdfly.SetActive(true);
+        }
+        else {
+            thirdfly.SetActive(false);
+        }
+        if (poisonStat >= 4) {
+            fourthfly.SetActive(true);
+        }
+        else {
+            fourthfly.SetActive(false);
+        }
+        if (poisonStat == 5) {
+            fifthfly.SetActive(true);
+        }
+        else {
+            fifthfly.SetActive(false);
+        }
+        hunger.speedBar.fillAmount = satietyStat/100;
         poisonText.text = poisonStat.ToString();
         satietyText.text = satietyStat.ToString();
     }

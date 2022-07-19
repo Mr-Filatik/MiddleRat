@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HungerBar_Script : MonoBehaviour
 {
-    private Image speedBar;
+    public Image speedBar;
     public Image color1;
     public Image color2;
     public Image color3;
