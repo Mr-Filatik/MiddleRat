@@ -36,12 +36,50 @@ public class StatusController : MonoBehaviour
     }
     public void Poisoning(float poison)
     {
-        
-
         poisonStat += poison;
 
         if (poisonStat > 5) poisonStat = 5;
         if (poisonStat < 0) poisonStat = 0;
+        if (poisonStat >= 1)
+        {
+            firstfly.SetActive(true);
+        }
+        else
+        {
+            firstfly.SetActive(false);
+        }
+        if (poisonStat >= 2)
+        {
+            secondfly.SetActive(true);
+        }
+        else
+        {
+            secondfly.SetActive(false);
+        }
+        if (poisonStat >= 3)
+        {
+            thirdfly.SetActive(true);
+        }
+        else
+        {
+            thirdfly.SetActive(false);
+        }
+        if (poisonStat >= 4)
+        {
+            fourthfly.SetActive(true);
+        }
+        else
+        {
+            fourthfly.SetActive(false);
+        }
+        if (poisonStat == 5)
+        {
+            fifthfly.SetActive(true);
+        }
+        else
+        {
+            fifthfly.SetActive(false);
+        }
     }
     public void SatietyReduction()
     {
@@ -115,36 +153,7 @@ public class StatusController : MonoBehaviour
         SatietyReduction();
         GameOver();
         gameFinish();
-        if (poisonStat >= 1) {
-            firstfly.SetActive(true);
-        }
-        else {
-            firstfly.SetActive(false);
-        }
-        if (poisonStat >= 2) {
-            secondfly.SetActive(true);
-        }
-        else {
-            secondfly.SetActive(false);
-        }
-        if (poisonStat >= 3) {
-            thirdfly.SetActive(true);
-        }
-        else {
-            thirdfly.SetActive(false);
-        }
-        if (poisonStat >= 4) {
-            fourthfly.SetActive(true);
-        }
-        else {
-            fourthfly.SetActive(false);
-        }
-        if (poisonStat == 5) {
-            fifthfly.SetActive(true);
-        }
-        else {
-            fifthfly.SetActive(false);
-        }
+        
         hunger.speedBar.fillAmount = satietyStat/100;
         poisonText.text = poisonStat.ToString();
         satietyText.text = satietyStat.ToString();
