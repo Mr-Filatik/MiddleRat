@@ -142,7 +142,7 @@ public class StatusController : MonoBehaviour
         if (isFinish)
         {
             ///call win scene here
-
+            movementSpeed = 0;
         }
 
     }
