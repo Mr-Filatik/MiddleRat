@@ -13,6 +13,9 @@ public class StatusController : MonoBehaviour
     public GameObject thirdfly;
     public GameObject fourthfly;
     public GameObject fifthfly;
+    public GameObject winScene;
+    public GameObject looseScene;
+    public GameObject uI;
     [SerializeField] private static float satietyStat;
     [SerializeField] private static float poisonStat;
     [SerializeField] private float satietySpeed;
@@ -115,7 +118,9 @@ public class StatusController : MonoBehaviour
         if (!isAlive)
         {
             movementSpeed = 0;
-            ///call lose scene here
+            Time.timeScale = 0;
+            uI.SetActive(false);
+            looseScene.SetActive(true);
         }
         
         if (movementSpeed <= 0) isAlive = false;
@@ -141,8 +146,10 @@ public class StatusController : MonoBehaviour
     {
         if (isFinish)
         {
-            ///call win scene here
             movementSpeed = 0;
+            Time.timeScale = 0;
+            uI.SetActive(false);
+            winScene.SetActive(true);
         }
 
     }
