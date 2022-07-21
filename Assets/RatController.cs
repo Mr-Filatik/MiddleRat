@@ -131,6 +131,7 @@ public class RatController : MonoBehaviour
         } 
         if(other.tag == "Poison")
         {
+            status.Eating(10);
             status.Poisoning(1);
             other.gameObject.SetActive(false);
         }
@@ -141,6 +142,7 @@ public class RatController : MonoBehaviour
         }
         if (other.tag == "Food")
         {
+            status.Poisoning(-1);
             status.Eating(20);
             other.gameObject.SetActive(false);
         }
