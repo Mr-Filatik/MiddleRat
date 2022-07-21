@@ -21,7 +21,7 @@ public class StatusController : MonoBehaviour
     [SerializeField] private float poisoningDeviationSpeed;
     [SerializeField] private TMP_Text satietyText;
     [SerializeField] private TMP_Text poisonText;
-
+ 
     public bool isFinish;
     public bool isAlive = true;
     public void Eating(float eat)
@@ -112,8 +112,12 @@ public class StatusController : MonoBehaviour
     } */
     public void GameOver()
     {
-        if (!isAlive) movementSpeed = 0;
-        Debug.Log(movementSpeed);
+        if (!isAlive)
+        {
+            movementSpeed = 0;
+            ///call lose scene here
+        }
+        
         if (movementSpeed <= 0) isAlive = false;
     }
     // Start is called before the first frame update
@@ -137,9 +141,10 @@ public class StatusController : MonoBehaviour
     {
         if (isFinish)
         {
-            Debug.Log("game finished");
+            ///call win scene here
+
         }
-        else Debug.Log("game playing");
+
     }
     void Start()
     {
@@ -155,7 +160,6 @@ public class StatusController : MonoBehaviour
         gameFinish();
         
         hunger.speedBar.fillAmount = satietyStat/100;
-        poisonText.text = poisonStat.ToString();
-        satietyText.text = satietyStat.ToString();
+        
     }
 }

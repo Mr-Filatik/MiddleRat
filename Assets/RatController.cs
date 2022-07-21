@@ -17,7 +17,7 @@ public class RatController : MonoBehaviour
     public StatusController status;
     [SerializeField] private TMP_Text moveSpeedText;
     private Animator anim;
-
+    private float[] sideRestriction = new float[] { -8f, 8f };
     private void Start()
     {
         anim = GetComponentInChildren<Animator>();
@@ -34,7 +34,7 @@ public class RatController : MonoBehaviour
     public void moveController()
     {
         movementSpeed = StatusController.getSpeed();
-        if (movementSpeed == 0) sideSpeed = 0;
+        if (movementSpeed > 0) {
         if (StatusController.getEat() > 70)
         {
             canJump = false;
@@ -63,23 +63,22 @@ public class RatController : MonoBehaviour
             {
                 isJump = true;
                 time = 0;
+                
             }
+            
         }
         
         Vector3 prevPos = transform.position;
         Vector3 pos = transform.position;
         pos.x += move * sideSpeed * Time.deltaTime;
 
-        if (pos.x < -8|| pos.x > 8)     //side restriction
+        if (pos.x < sideRestriction[0] || pos.x > sideRestriction[1])     //side restriction
         {
             pos.x = prevPos.x;
         }
         transform.position = pos;
 
-
-
-        if (isJump)
-        {
+        
             pos = transform.position;
             pos.y = animation.Evaluate(time) * 4;
             time += Time.deltaTime;
@@ -88,14 +87,14 @@ public class RatController : MonoBehaviour
             {
                 isJump = false;
             }
-        }
-        PoisonPos();
+
+            PoisonPos();
 
         pos = map.transform.position;
         pos.z -= movementSpeed * Time.deltaTime;
         map.transform.position = pos;
 
-        moveSpeedText.text = movementSpeed.ToString();
+        }
     }
     public void PoisonPos()
     {
@@ -103,14 +102,27 @@ public class RatController : MonoBehaviour
         Vector3 pos = transform.position;
         
         pos.x += Random.Range(-StatusController.getPoisoning(), StatusController.getPoisoning()) * Time.deltaTime * 1.5f;
-        if (pos.x < -1.9 || pos.x > 2.9)
+        if (pos.x < sideRestriction[0] || pos.x > sideRestriction[1])
         {
             pos.x = prevPos.x;
         }
         transform.position = pos;
         
     }
-    
+    public void Jump()
+    {
+        
+            Vector3 pos = transform.position;
+            pos = transform.position;
+            pos.y = animation.Evaluate(time) * 4;
+            time += Time.deltaTime;
+            transform.position = pos;
+            if (time > animation.keys[animation.length - 1].time)
+            {
+                isJump = false;
+            }
+       
+    }
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Finish")
